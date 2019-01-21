@@ -185,7 +185,7 @@ TreeNode *GZHMap::walkTree(const uint32 &key, NodeStack &stack)
     {
         int branch = innerNode->selectNextBranch(key);
         auto child = std::static_pointer_cast<InnerNode>(innerNode->getChild(branch));
-        if (child == nullptr)
+        if (!child)
         {
             child = std::make_shared<InnerNode>();
             int currentDepth = innerNode->depth();
@@ -199,7 +199,7 @@ TreeNode *GZHMap::walkTree(const uint32 &key, NodeStack &stack)
 
     int branch = innerNode->selectNextBranch(key);
     auto child = std::static_pointer_cast<LeafNode>(innerNode->getChild(branch));
-    if (child == nullptr)
+    if (!child)
     {
         child = std::make_shared<LeafNode>();
     }
@@ -219,7 +219,7 @@ bool GZHMap::insert(const Item& item)
     // Ò»¶¨ÊÇleaf node;
     assert(treeNode->isLeaf());
     auto leafNode = std::static_pointer_cast<LeafNode>(treeNode);
-    if (leafNode->item() == nullptr)
+    if (!(leafNode->item()))
     {
         leafNode->setItem(item);
         return true;
